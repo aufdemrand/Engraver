@@ -1,15 +1,7 @@
 package denizen.me.engraver;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.ItemDespawnEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
-
-
 
 import net.aufdemrand.denizen.exceptions.CommandExecutionException;
 import net.aufdemrand.denizen.exceptions.InvalidArgumentsException;
@@ -18,18 +10,18 @@ import net.aufdemrand.denizen.scripts.commands.AbstractCommand;
 import net.aufdemrand.denizen.scripts.helpers.ArgumentHelper.ArgumentType;
 import net.aufdemrand.denizen.utilities.debugging.dB;
 import net.aufdemrand.denizen.utilities.debugging.dB.Messages;
-import net.aufdemrand.denizen.utilities.nbt.NBTItem;
 
-/**
- * Engraves an item. Engraved items are bound to their engraver and cannot be picked
+/*
+ * Denizen dScript ENGRAVE command:
+ * 
+ * Engraves an item in the player's hand. Engraved items are bound to their engraver and cannot be picked
  * up by other Players.
  * 
- * @author Jeremy Schroeder
  */
 
 public class EngraveCommand extends AbstractCommand implements Listener {
 
-	/* ENGRAVE (REMOVE|ADD)
+	/* ENGRAVE (REMOVE|ADD) (TARGET:target_name)
 
 	/* Arguments: [] - Required, () - Optional 
 	 * 
@@ -78,16 +70,16 @@ public class EngraveCommand extends AbstractCommand implements Listener {
 
 		if (action == EngraveAction.REMOVE) {
 			dB.echoDebug("Removing engraving on '" + item.getType() + "'.");			
-			NBTItem.removeEngraving(item, playerName);
+			EngraverNBT.removeEngraving(item);
 		} else if (action == EngraveAction.ADD) {
 			dB.echoDebug("Engraving '" + item.getType() + "' with an inscription of '" + playerName + "'.");
-			NBTItem.addEngraving(item, playerName);
+			EngraverNBT.addEngraving(item, playerName);
 		}
 	}
 
 	@Override
 	public void onEnable() {
-		denizen.getServer().getPluginManager().registerEvents(this, denizen);
+		// Nothing to do here.
 	}
 
 

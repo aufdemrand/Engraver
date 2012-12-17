@@ -1,0 +1,5 @@
+name: Engraver for Denizen/C2
+author: aufdemrand
+version: 1.0
+main: denizen.me.engraver.BukkitPlugin
+depend: [Citizens, Denizen]
