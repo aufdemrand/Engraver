@@ -12,7 +12,7 @@ public class BukkitPlugin extends JavaPlugin {
 	public EngraverEnforcer enforcer;
 	public EngraverReplaceables replacer;
 	
-	// Run this on Bukkit's enable sequence.
+	// Run this on Bukkit's enable sequence.. the perfect place to register commands, events, etc.
 	@Override
 	public void onEnable() {
 
@@ -32,6 +32,7 @@ public class BukkitPlugin extends JavaPlugin {
 		dB.log("Loaded ENGRAVER Add-on for Denizen/C2!");
 	}
 
+	// Part of Bukkit's disable sequence.
 	@Override
 	public void onDisable() {
 		// unregister events in case of a /reload

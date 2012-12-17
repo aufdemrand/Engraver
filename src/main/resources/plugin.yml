@@ -1,4 +1,4 @@
-name: Engraver for Denizen/C2
+name: Engraver
 author: aufdemrand
 version: 1.0
 main: denizen.me.engraver.BukkitPlugin
