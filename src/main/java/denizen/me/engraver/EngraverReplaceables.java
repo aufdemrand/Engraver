@@ -22,7 +22,8 @@ public class EngraverReplaceables implements Listener {
 	       
 	       // Replace on <PLAYER.ITEM_IN_HAND.OWNER>
 	       if (event.getType().equalsIgnoreCase("ITEM_IN_HAND.OWNER"))
-	    	   event.setReplaceable(EngraverNBT.getEngraving(event.getPlayer().getItemInHand()));
+	    	   if (EngraverNBT.hasEngraving(event.getPlayer().getItemInHand()))
+	    			   event.setReplaceable(EngraverNBT.getEngraving(event.getPlayer().getItemInHand()));
 	}
 	
 }
