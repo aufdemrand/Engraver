@@ -7,7 +7,8 @@ import net.aufdemrand.denizen.exceptions.CommandExecutionException;
 import net.aufdemrand.denizen.exceptions.InvalidArgumentsException;
 import net.aufdemrand.denizen.scripts.ScriptEntry;
 import net.aufdemrand.denizen.scripts.commands.AbstractCommand;
-import net.aufdemrand.denizen.scripts.helpers.ArgumentHelper.ArgumentType;
+import net.aufdemrand.denizen.utilities.arguments.aH;
+import net.aufdemrand.denizen.utilities.arguments.aH.ArgumentType;
 import net.aufdemrand.denizen.utilities.debugging.dB;
 import net.aufdemrand.denizen.utilities.debugging.dB.Messages;
 
@@ -57,6 +58,15 @@ public class EngraveCommand extends AbstractCommand implements Listener {
 			} else if (aH.matchesValueArg("TARGET", arg, ArgumentType.String)) {
 				dB.echoDebug(Messages.DEBUG_SET_TYPE, arg);
 				playerName = aH.getStringFrom(arg);
+				
+			//
+			// If there is an ITEM: argument,
+			// use that instead of the item
+			// in the players hand
+			//
+			} else if (aH.matchesItem(arg)) {
+				dB.echoDebug(Messages.DEBUG_SET_ITEM, arg);
+				item = aH.getItemFrom(arg);
 
 			} else throw new InvalidArgumentsException(Messages.ERROR_UNKNOWN_ARGUMENT, arg);
 		}
@@ -66,7 +76,7 @@ public class EngraveCommand extends AbstractCommand implements Listener {
 	}
 
 	@Override
-	public void execute(String commandName) throws CommandExecutionException {
+	public void execute(ScriptEntry scriptEntry) throws CommandExecutionException {
 
 		if (action == EngraveAction.REMOVE) {
 			dB.echoDebug("Removing engraving on '" + item.getType() + "'.");			
@@ -81,7 +91,5 @@ public class EngraveCommand extends AbstractCommand implements Listener {
 	public void onEnable() {
 		// Nothing to do here.
 	}
-
-
 
 }
