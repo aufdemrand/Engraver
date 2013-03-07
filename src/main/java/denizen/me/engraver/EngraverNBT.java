@@ -3,9 +3,9 @@ package denizen.me.engraver;
 import java.lang.reflect.Field;
 
 import net.aufdemrand.denizen.utilities.debugging.dB;
-import net.minecraft.server.v1_4_6.NBTTagCompound;
+import net.minecraft.server.v1_4_R1.NBTTagCompound;
 
-import org.bukkit.craftbukkit.v1_4_6.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_4_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
 /*
@@ -18,7 +18,7 @@ public class EngraverNBT {
 
 	public static boolean hasEngraving(ItemStack item) {
         NBTTagCompound tag;
-        net.minecraft.server.v1_4_6.ItemStack cis =  getItemStackHandle(item);
+        net.minecraft.server.v1_4_R1.ItemStack cis =  getItemStackHandle(item);
         if (!cis.hasTag()) return false;
 		tag = cis.getTag();
 		// if this item has the NBTData for 'owner', there is an engraving.
@@ -26,7 +26,7 @@ public class EngraverNBT {
 	}
 
 	public static String getEngraving(ItemStack item) {
-        net.minecraft.server.v1_4_6.ItemStack cis =  getItemStackHandle(item);
+        net.minecraft.server.v1_4_R1.ItemStack cis =  getItemStackHandle(item);
 		NBTTagCompound tag;
         if (!cis.hasTag())
 			cis.setTag(new NBTTagCompound());
@@ -38,17 +38,17 @@ public class EngraverNBT {
 	}
 
 	public static void removeEngraving(ItemStack item) {
-		net.minecraft.server.v1_4_6.ItemStack cis =  getItemStackHandle(item);
+		net.minecraft.server.v1_4_R1.ItemStack cis =  getItemStackHandle(item);
 		NBTTagCompound tag;
 		if (!cis.hasTag())
 			cis.setTag(new NBTTagCompound());
 		tag = cis.getTag();
 		// remove 'owner' NBTData
-		tag.o("owner");
+		tag.remove("owner");
 	}
 
 	public static void addEngraving(ItemStack item, String playerName) {
-		net.minecraft.server.v1_4_6.ItemStack cis = getItemStackHandle(item);
+		net.minecraft.server.v1_4_R1.ItemStack cis = getItemStackHandle(item);
 		NBTTagCompound tag = null;
 		// Do stuff with tag
 		if (!cis.hasTag()) {
@@ -64,7 +64,7 @@ public class EngraverNBT {
 		dB.log(CraftItemStack.asNMSCopy(item).getTag().getString("owner"));
 	}
 	
-	public static net.minecraft.server.v1_4_6.ItemStack getItemStackHandle(ItemStack item) {
+	public static net.minecraft.server.v1_4_R1.ItemStack getItemStackHandle(ItemStack item) {
 		CraftItemStack cis = (CraftItemStack) item;
 		Field f = null;
 		try {
@@ -77,10 +77,10 @@ public class EngraverNBT {
 		} catch (NoSuchFieldException e) {
 			e.printStackTrace();
 		}
-		net.minecraft.server.v1_4_6.ItemStack is = null;
+		net.minecraft.server.v1_4_R1.ItemStack is = null;
 		try {
 			// Use reflection to get handle
-			is = (net.minecraft.server.v1_4_6.ItemStack) f.get(item);
+			is = (net.minecraft.server.v1_4_R1.ItemStack) f.get(item);
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
